@@ -22,7 +22,6 @@ Word 文件用 Word 或兼容软件打开，Excel 用 Excel 或兼容软件打�
 | [processed test paper/](processed%20test%20paper/README.md) | 试卷清理中间文件，点击查看内部每个文件。 |
 | [revised_shatin/](revised_shatin/README.md) | 按模型组织的修订结果，点击查看内部每个文件。 |
 | [student_test_sample/](student_test_sample/README.md) | 学生答卷格式样例，点击查看内部每个文件。 |
-| [KNOWN_ISSUES.md](KNOWN_ISSUES.md) | 按源码记录运行阻碍、数据风险和评价边界，本次文档没有修复这些问题。 |
 | [ROADMAP.md](ROADMAP.md) | 建议的开发阶段、目标数据库能力和验收标准，不是已完成功能清单。 |
 | [Test 1 Model Answer.docx](Test%201%20Model%20Answer.docx) | Test 1 的标准答案样例，供逐题比较学生选择。 |
 | [Test 1 Question Paper.docx](Test%201%20Question%20Paper.docx) | 原始试卷样例，供拆题和知识点读取，与标准答案和学生答卷配套使用。 |

@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | 教师或项目负责人 | 本页 → [材料目录](docs/README.md) → [后续计划](docs/ROADMAP.md) | 项目目标、目前进展、题目和反馈材料的位置、下一步工作 |
 | 不写代码但需要试用的同事 | 本页 → [安装与运行](SETUP.md) → [界面说明](Source%20Code/Front_End/README.md) | 需要安装什么、技术同事需要先准备什么、界面按钮做什么 |
-| 接手开发的同事 | [代码总览](Source%20Code/README.md) → 各模块 README → [已知问题](docs/KNOWN_ISSUES.md) | 文件分工、调用关系、输入输出、阻碍完整运行的问题 |
+| 接手开发的同事 | [代码总览](Source%20Code/README.md) → 各模块 README → [安装指南](SETUP.md) | 文件分工、调用关系、输入输出、运行条件与当前限制 |
 | 继续出题与质量研究的同事 | [出题模块](Source%20Code/Paper_Generator/README.md) → [教师反馈](docs/paper_with_feedback/README.md) | 生成、单模型修订、多模型投票、人工评价和比较流程 |
 
 ## 2. 项目希望解决的教学问题
@@ -107,7 +107,6 @@ JAP_LLM_Platform/
 │   └── Fine_Tuning_Module/         Word 词条转微调数据
 └── docs/
     ├── README.md                   材料索引
-    ├── KNOWN_ISSUES.md             从源码核对的限制与运行阻碍
     ├── ROADMAP.md                  后续开发阶段与验收标准
     ├── Generated_paper/            生成题、修订输入和入库归档样例
     ├── paper_with_feedback/        教师反馈、问题题号和词条资料
