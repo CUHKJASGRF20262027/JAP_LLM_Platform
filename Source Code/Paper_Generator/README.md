@@ -1,13 +1,66 @@
 # 出题、修订与试卷处理
 
-[项目首页](../../README.md) · [安装指南](../../docs/SETUP.md) · [已知问题](../../docs/KNOWN_ISSUES.md)
+[项目首页](../../README.md) · [安装指南](../../docs/SETUP.md)
 
-这个目录是一组实验工具，涵盖知识点出题、题目质量检查、Excel 修订、教师反馈比较，以及桌面窗口需要的数据库抽题。文件名中的 `v1` 到 `v4_1` 是并存的实验实现，不能简单把最高编号当作经过验证的统一入口。
+这个目录涵盖知识点出题、题目质量检查、Excel 修订、教师反馈比较，以及桌面窗口需要的数据库抽题。当前交接以 **v3_4 的交互式检查与修订流程为主用版本**，配套的完整分片流程入口是 `split_paper_test_pipeline.py`。其他版本保留各自的实验用途，版本号较大不代表是当前主用入口。
+
+## 主用版本与数字选择菜单
+
+核心文件是 [jap_question_generator_v3_4_qwen_based.py](jap_question_generator_v3_4_qwen_based.py)，投票功能由 [jap_voting_machine_v3_4.py](jap_voting_machine_v3_4.py) 提供。v3_4 运行后先显示以下菜单。
+
+```text
+Select revision mode:
+1. Single model revision (original v3.3 logic)
+2. Voting machine revision (4 experiment groups)
+3. Run all voting machine groups for comparison
+```
+
+| 第一次输入 | 后续选择 | 程序执行的工作 |
+| --- | --- | --- |
+| `1` | 从当前列出的 7 个模型中输入一个编号 | 用所选单模型检查和修订题目，保存 Excel 试卷和日志 |
+| `2` | 输入 `1` 到 `4`，选择一个模型投票组 | 多个模型逐题加权投票，由该组权重最高的模型修订达到阈值的题，保存 Excel 试卷和日志 |
+| `3` | 不再选择某一个组 | 依次运行全部四个投票组，分别保存各组结果 |
+
+### 直接运行核心版本
+
+先按[安装指南](../../docs/SETUP.md)准备 Python 依赖、DashScope API 凭据和输入文件，再从仓库根目录执行以下命令。
+
+```sh
+python "Source Code/Paper_Generator/jap_question_generator_v3_4_qwen_based.py"
+```
+
+当前模式 `1` 读取 `docs/Generated_paper/revised_grammar_questions/`，结果保存到 `docs/revised_shatin/<模型名>/`；模式 `2` 和 `3` 读取 `docs/Generated_paper/question_num_significance_test/paper/`，结果保存到 `docs/revised_shatin/voting_group_<组号>/`。这些输入目录需要事先准备，单独启动 v3_4 不会自动切分原试卷。
+
+输出包括最终的 `<输入文件名去掉扩展名>_revised.xlsx`、有修订时保存的中间轮次 Excel，以及 `_revision_log.txt` 日志。**此处“产生试卷”指基于已有题目检查、修改并输出修订后的 Excel；从知识点直接生成全新题目另有下方列出的生成脚本。**
+
+### 从切题到输出整份试卷的入口
+
+如果操作记忆中还包括先输入“每份多少道题”，对应的是 [split_paper_test_pipeline.py](split_paper_test_pipeline.py)。它依次调用切题、v3_4 检查修订、试卷合并和修改位置比较。
+
+```sh
+python "Source Code/Paper_Generator/split_paper_test_pipeline.py"
+```
+
+典型的单组投票操作顺序如下，各数字分别在程序提示时输入。
+
+```text
+10    每个分片放 10 道题
+2     选择一组模型投票修订
+1     选择第 1 个投票组
+```
+
+原题从 `docs/Generated_paper/shatin/` 读取。该入口会把选定的模型或组名传给后续合并、比较步骤，因此正常路径不需要在合并时重新选一次模型。合并后的 Excel 位于相应的 `docs/revised_shatin/` 模型或组目录，比较表位于 `docs/revised_shatin/model_comparison_summary/`。
+
+运行前须创建分片目录，准备相应输入，并保留原题与历史结果。切题和批量修订会清理各自输出目录，合并步骤会替换所选结果目录中的 Excel。完整操作准备见下方“运行模型流程”。
+
+**当前核心版本与整套流程的支持范围有区别。** v3_4 本身提供三个菜单模式，但配套分片流程目前按模式 `2` 的单个投票组衔接。模式 `1` 读取的是另一个输入目录，模式 `3` 返回 `all_voting_groups`，后续合并尚未自动遍历四个组。不能仅凭菜单存在就认定这两种选择在整套分片流程中已经接通。
 
 ## 先按任务选择入口
 
 | 要做的事 | 阅读或使用的入口 | 前置条件 |
 | --- | --- | --- |
+| 主用的交互式单模型或模型组检查修订 | `jap_question_generator_v3_4_qwen_based.py` | 对应模式的输入 Excel、API 凭据和可用模型 |
+| 主用的切题、投票修订、合卷和比较流程 | `split_paper_test_pipeline.py`，内部调用 v3_4 | 原题、分片目录与反馈材料；当前流程选择模式 `2` 的一个投票组 |
 | 从知识点 Word 生成题目 | `jap_question_generator_v2_1_qwen_based.py` 与 `config.py` | Python 依赖、API 凭据、可解析的知识点文档；先做小规模验证 |
 | 用一个模型检查和修改整份 Excel | `jap_question_generator_v3_1_qwen_based.py` | `docs/Generated_paper/shatin/` 中的题目、可用模型 |
 | 把整份题目拆成小批次 | `split_excel_paper.py` | 原题 Excel，先手工创建输出目录并备份旧分片 |
@@ -128,4 +181,4 @@ v3_2 主要记录题干或四个选项是否改变，仅答案列改变不会被
 - 当前结果分散在文件系统中，还没有统一接入教师审核和数据库发布流程。
 - LLM、harness 的格式检查和人工审核分别提供不同证据，发布题目前应保留来源与最终人工判断。
 
-更详细的问题和后续验收见[已知问题](../../docs/KNOWN_ISSUES.md)与[路线图](../../docs/ROADMAP.md)。
+后续开发阶段和验收标准见[路线图](../../docs/ROADMAP.md)。
