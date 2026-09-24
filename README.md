@@ -10,10 +10,12 @@
 
 ## 1. 第一次阅读的入口
 
+**安装与运行指南位于仓库根目录的 [SETUP.md](SETUP.md)**，与本 README 放在一起。首次运行请从这里开始，按需要配置 Python、模型 API 和数据库。
+
 | 你的角色 | 建议阅读顺序 | 阅读后能了解的内容 |
 | --- | --- | --- |
 | 教师或项目负责人 | 本页 → [材料目录](docs/README.md) → [后续计划](docs/ROADMAP.md) | 项目目标、目前进展、题目和反馈材料的位置、下一步工作 |
-| 不写代码但需要试用的同事 | 本页 → [安装与运行](docs/SETUP.md) → [界面说明](Source%20Code/Front_End/README.md) | 需要安装什么、技术同事需要先准备什么、界面按钮做什么 |
+| 不写代码但需要试用的同事 | 本页 → [安装与运行](SETUP.md) → [界面说明](Source%20Code/Front_End/README.md) | 需要安装什么、技术同事需要先准备什么、界面按钮做什么 |
 | 接手开发的同事 | [代码总览](Source%20Code/README.md) → 各模块 README → [已知问题](docs/KNOWN_ISSUES.md) | 文件分工、调用关系、输入输出、阻碍完整运行的问题 |
 | 继续出题与质量研究的同事 | [出题模块](Source%20Code/Paper_Generator/README.md) → [教师反馈](docs/paper_with_feedback/README.md) | 生成、单模型修订、多模型投票、人工评价和比较流程 |
 
@@ -93,6 +95,7 @@ flowchart TD
 ```text
 JAP_LLM_Platform/
 ├── README.md                       项目总说明和阅读入口
+├── SETUP.md                        安装、配置和运行步骤
 ├── requirements.txt                Python 依赖及固定版本
 ├── .gitignore                      默认不提交的临时文件和生成结果
 ├── .gitattributes                  统一文本文件换行方式
@@ -104,7 +107,6 @@ JAP_LLM_Platform/
 │   └── Fine_Tuning_Module/         Word 词条转微调数据
 └── docs/
     ├── README.md                   材料索引
-    ├── SETUP.md                    安装、配置和运行步骤
     ├── KNOWN_ISSUES.md             从源码核对的限制与运行阻碍
     ├── ROADMAP.md                  后续开发阶段与验收标准
     ├── Generated_paper/            生成题、修订输入和入库归档样例
@@ -120,7 +122,7 @@ JAP_LLM_Platform/
 
 **只阅读本项目和已有题目，不需要运行 Python 或安装数据库。** 在 GitHub 阅读说明，下载 Word 或 Excel 文件即可查看材料。
 
-需要运行时，先阅读[安装指南](docs/SETUP.md)。技术同事应先准备 Python 环境，并根据任务选择配置 LLM API 或 MySQL。
+需要运行时，先阅读[安装指南](SETUP.md)。技术同事应先准备 Python 环境，并根据任务选择配置 LLM API 或 MySQL。
 
 | 使用任务 | 需要的环境 | 不需要的组件 |
 | --- | --- | --- |

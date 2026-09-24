@@ -1,6 +1,6 @@
 # 安装、配置与试用
 
-[项目首页](../README.md) · [已知问题](KNOWN_ISSUES.md)
+[项目首页](README.md) · [数据库运行说明](Source%20Code/SQL_Database/README.md)
 
 本指南把阅读材料、运行模型实验和运行桌面界面分开说明。当前源码有明确的运行阻碍，本指南不是已经通过验收的一键部署承诺。初次交接应由技术同事在隔离环境中完成配置，再把可用入口交给教师。
 
@@ -97,7 +97,7 @@ python "Source Code/Paper_Generator/jap_question_generator_v2_1_qwen_based.py"
 python "Source Code/Paper_Generator/jap_question_generator_v3_1_qwen_based.py"
 ```
 
-按终端菜单选择账户可用模型。默认读取 `docs/Generated_paper/shatin/`，保存到 `docs/revised_shatin/<模型名>/`。先改为实验副本路径或备份已有输出，避免覆盖历史同名结果。更详细的版本与投票流程见[出题目录说明](../Source%20Code/Paper_Generator/README.md)。
+按终端菜单选择账户可用模型。默认读取 `docs/Generated_paper/shatin/`，保存到 `docs/revised_shatin/<模型名>/`。先改为实验副本路径或备份已有输出，避免覆盖历史同名结果。更详细的版本与投票流程见[出题目录说明](Source%20Code/Paper_Generator/README.md)。
 
 ## 6. 准备 MySQL 后再运行界面
 
@@ -109,7 +109,7 @@ python "Source Code/Paper_Generator/jap_question_generator_v3_1_qwen_based.py"
 
 可以先把 MySQL 放在开发者自己的电脑上，使用 `localhost`。多人共用时，可以部署到一台团队管理的服务器，再由各电脑连接。此时 `localhost` 指向每个人自己的电脑，必须改为实际服务器地址，并由管理员配置账号和网络访问。
 
-技术同事应按[数据库目录说明](../Source%20Code/SQL_Database/README.md)创建隔离测试库、准备表结构与匿名样例，并修复已知导入问题。不要直接执行旧建表或导入脚本来“自动准备数据库”。
+技术同事应按[数据库目录说明](Source%20Code/SQL_Database/README.md)创建隔离测试库、准备表结构与匿名样例，并修复已知导入问题。不要直接执行旧建表或导入脚本来“自动准备数据库”。
 
 如果选择 DataGrip，创建 MySQL 数据源，填写管理员提供的 Host、Port、User、Password 和数据库名，按提示下载驱动，然后 Test Connection，最后选择对应 schema 查看表。操作依据见[DataGrip 连接说明](https://www.jetbrains.com/help/datagrip/connecting-to-a-database.html)。关闭客户端不会等同于停止服务器。
 
@@ -120,7 +120,7 @@ New-Item -ItemType Directory -Force "work/generated_practice"
 python "Source Code/Front_End/interface.py"
 ```
 
-出现窗口后，打开 `setting`，填入已经存在的输出文件夹绝对路径，查询数据库中确实存在的学生，选择试卷，再点击 `Analyze` 或 `Generate`。详见[界面使用说明](../Source%20Code/Front_End/README.md)。
+出现窗口后，打开 `setting`，填入已经存在的输出文件夹绝对路径，查询数据库中确实存在的学生，选择试卷，再点击 `Analyze` 或 `Generate`。详见[界面使用说明](Source%20Code/Front_End/README.md)。
 
 ## 7. 不调用模型的微调数据转换
 
@@ -128,7 +128,7 @@ python "Source Code/Front_End/interface.py"
 python "Source Code/Fine_Tuning_Module/data_preprocessor.py"
 ```
 
-该脚本会覆盖已有的 `docs/paper_with_feedback/kp_for_fine_tuning/japanese_vocab_unsloth.jsonl`。保留原文件或在脚本中把 `OUTPUT_JSONL` 改成新路径后再运行。它只转换数据，不开始训练，详见[模块说明](../Source%20Code/Fine_Tuning_Module/README.md)。
+该脚本会覆盖已有的 `docs/paper_with_feedback/kp_for_fine_tuning/japanese_vocab_unsloth.jsonl`。保留原文件或在脚本中把 `OUTPUT_JSONL` 改成新路径后再运行。它只转换数据，不开始训练，详见[模块说明](Source%20Code/Fine_Tuning_Module/README.md)。
 
 ## 8. 常见现象和定位方法
 

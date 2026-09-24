@@ -1,6 +1,6 @@
 # 出题、修订与试卷处理
 
-[项目首页](../../README.md) · [安装指南](../../docs/SETUP.md)
+[项目首页](../../README.md) · [安装指南](../../SETUP.md)
 
 这个目录涵盖知识点出题、题目质量检查、Excel 修订、教师反馈比较，以及桌面窗口需要的数据库抽题。当前交接以 **v3_4 的交互式检查与修订流程为主用版本**，配套的完整分片流程入口是 `split_paper_test_pipeline.py`。其他版本保留各自的实验用途，版本号较大不代表是当前主用入口。
 
@@ -23,7 +23,7 @@ Select revision mode:
 
 ### 直接运行核心版本
 
-先按[安装指南](../../docs/SETUP.md)准备 Python 依赖、DashScope API 凭据和输入文件，再从仓库根目录执行以下命令。
+先按[安装指南](../../SETUP.md)准备 Python 依赖、DashScope API 凭据和输入文件，再从仓库根目录执行以下命令。
 
 ```sh
 python "Source Code/Paper_Generator/jap_question_generator_v3_4_qwen_based.py"
@@ -123,7 +123,7 @@ python "Source Code/Paper_Generator/split_paper_test_pipeline.py"
 
 ## 运行模型流程
 
-API 和 Python 环境配置见[安装指南](../../docs/SETUP.md)。以下命令从仓库根目录运行，先核对输入输出路径并保护原始材料。
+API 和 Python 环境配置见[安装指南](../../SETUP.md)。以下命令从仓库根目录运行，先核对输入输出路径并保护原始材料。
 
 ```sh
 python "Source Code/Paper_Generator/jap_question_generator_v2_1_qwen_based.py"
